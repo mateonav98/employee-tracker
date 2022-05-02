@@ -19,7 +19,7 @@
 
 const mysql = require('mysql2');
 const inquirier = require('inquirer');
-// const consoleTable = require('console.table');
+const consoleTable = require('console.table');
 
 //connection to mysql
 const db = mysql.createConnection({
@@ -30,3 +30,21 @@ const db = mysql.createConnection({
     },
     console.log('successfully connected to employee database')
 );
+
+function prompts() {
+    inquirier.prompt({
+        type: 'list',
+        name: 'prompts',
+        message: 'What would you like to do?',
+        choices: 
+                ["View All Departments", 
+                "View All Roles", 
+                "View All Employees", 
+                "Add Department", 
+                "Add Role", 
+                "Add Employee", 
+                "Update Employee Role", 
+                "Quit"]
+    })
+}
+prompts();
