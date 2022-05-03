@@ -1,6 +1,3 @@
-// GIVEN a command-line application that accepts user input
-
-
 const mysql = require('mysql2');
 const inquirier = require('inquirer');
 const consoleTable = require('console.table');
@@ -15,6 +12,7 @@ const db = mysql.createConnection({
     console.log('successfully connected to employee database')
 );
 
+// prompting user to select an option from the list
 function prompts() {
     inquirier.prompt({
         type: 'list',
@@ -29,6 +27,7 @@ function prompts() {
                 "Add Employee", 
                 "Update Employee Role", 
                 "Quit"]
+    // running a function based on what the user selects
     }).then(function(answer) {
         switch(answer.userOptions) {
             case "View All Departments":
@@ -61,6 +60,8 @@ function prompts() {
 }
 prompts();
 
+// WHEN I start the application
+// THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
 function departmentView() { 
     console.log("All Departments");
     const sql = `SELECT * FROM department`;
@@ -73,6 +74,7 @@ function departmentView() {
         prompts();
         }
     )};
+
 // WHEN I choose to view all roles
 // THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 function roleView(){ 
@@ -104,10 +106,25 @@ function employeeView(){
 
 // WHEN I choose to add a department
 // THEN I am prompted to enter the name of the department and that department is added to the database
-function addDepartment(){ 
-    console.log("hello")    
-};
-
+function addDepartment() { 
+    inquirier.prompt({
+        type: 'input',
+        name: 'newDepartment',
+        message: 'Please enter new department name'
+    }).then(function(answer) {
+        const sql = `INSERT INTO department (department_name) VALUES (?)`;
+        const department = answer.newDepartment;
+        db.query(sql, department, (err, res) => {
+            if (err) {
+                console.log(err)
+                return;
+            }
+            console.log("New department added!");
+            console.table(res);
+            departmentView();
+        })
+    });  
+}
 // WHEN I choose to add a role
 // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
 function addRole() { 
