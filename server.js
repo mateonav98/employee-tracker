@@ -34,7 +34,7 @@ const db = mysql.createConnection({
 function prompts() {
     inquirier.prompt({
         type: 'list',
-        name: 'prompts',
+        name: 'userOptions',
         message: 'What would you like to do?',
         choices: 
                 ["View All Departments", 
@@ -45,6 +45,60 @@ function prompts() {
                 "Add Employee", 
                 "Update Employee Role", 
                 "Quit"]
+    }).then(function(answer) {
+        switch(answer.userOptions) {
+            case "View All Departments":
+                departmentView();
+                break;
+            case "View All Roles":
+                roleView();
+                break;
+            case "View All Employees":
+                employeeView();
+                break;
+            case "Add Department":
+                addDepartment();
+                break;
+            case "Add Role":
+                addRole();
+                break;
+            case "Add Employee":
+                addEmployee();
+                break;
+            case "Update Employee Role":
+                updateEmployee();
+                break;
+            case "Quit":
+                quit();
+                break;
+        }
+
     })
 }
 prompts();
+
+function departmentView() { 
+    console.log("hello")    
+};
+function roleView(){ 
+    console.log("hello")    
+};
+function employeeView(){ 
+    console.log("hello")    
+};
+function addDepartment(){ 
+    console.log("hello")    
+};
+function addRole() { 
+    console.log("hello")    
+};
+function addEmployee(){ 
+    console.log("hello")    
+};
+function updateEmployee(){ 
+    console.log("hello")    
+};
+function quit(){ 
+    console.log("hello")    
+};
+
