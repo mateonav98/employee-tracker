@@ -78,8 +78,17 @@ function prompts() {
 prompts();
 
 function departmentView() { 
-    console.log("hello")    
-};
+    console.log("All Departments");
+    const sql = `SELECT * FROM department`;
+    db.query(sql, (err, res) => {
+        if (err) {
+            console.log(err)
+            return;
+        }
+        console.table(res) 
+        }
+    )};
+    
 function roleView(){ 
     console.log("hello")    
 };
