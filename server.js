@@ -128,8 +128,34 @@ function addDepartment() {
 // WHEN I choose to add a role
 // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
 function addRole() { 
-    console.log("hello")    
-};
+    sql = 'SELECT * FROM department'
+    db.query(sql, (err, res) => {
+        if (err) {
+        console.log(err)
+    };
+    const departments = [];
+    for (var i=0; i<res.length; i++) {
+        departments.push(res[i].department_name);
+    };
+    roleParameters = inquirier.prompt( [
+        {
+            type: 'list',
+            name: 'department',
+            message: 'Select a department for this role',
+            choices: departments
+        },
+        {
+            type: 'input',
+            name: 'newRole',
+            message: 'Please enter new position title'
+        },
+        {
+            type: 'number',
+            name: 'salary',
+            message: 'Please enter salary amount'
+        }]);
+    });  
+}
 
 // WHEN I choose to add an employee
 // THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
