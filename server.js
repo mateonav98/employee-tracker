@@ -89,10 +89,18 @@ function roleView(){
     )};    
 
 // WHEN I choose to view all employees
-// THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+// howing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 function employeeView(){ 
-    console.log("hello")    
-};
+    const sql =`SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.department_name AS department, CONCAT (manager.first_name, " ", manager.last_name) AS manager, manager.id as "manager id" FROM employee JOIN roles ON employee.role_id = roles.id JOIN department ON roles.department_id = department.id JOIN employee manager ON employee.manager_id = manager.id;`;
+    db.query(sql, (err, res) => {
+        if (err) {
+            console.log(err)
+            return;
+        }
+        console.table(res) 
+        prompts();
+        }
+    )};  
 
 // WHEN I choose to add a department
 // THEN I am prompted to enter the name of the department and that department is added to the database
@@ -120,6 +128,6 @@ function updateEmployee(){
 // WHEN I choose to update an employee role
 // THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
 function quit(){ 
-    console.log("hello")    
+    db.end
 };
 
