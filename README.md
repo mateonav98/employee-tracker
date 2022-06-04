@@ -51,7 +51,7 @@ npm run start
 
 ## Demo
 
-For video walkthrough click here: 
+For video walkthrough click here: https://github.com/mateonav98/employee-tracker/blob/main/images/employee-tracker.gif
 
 <img src="./images/employee-tracker.gif" width=900px>
 
